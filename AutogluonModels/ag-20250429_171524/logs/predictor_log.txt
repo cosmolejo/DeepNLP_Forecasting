@@ -1,0 +1,50 @@
+Beginning AutoGluon training...
+AutoGluon will save models to 'c:\UdeA\Deep NL\Project\DeepNLP_Forecasting\AutogluonModels\ag-20250429_171524'
+=================== System Info ===================
+AutoGluon Version:  1.2
+Python Version:     3.12.10
+Operating System:   Windows
+Platform Machine:   AMD64
+Platform Version:   10.0.22631
+CPU Count:          12
+GPU Count:          1
+Memory Avail:       1.00 GB / 7.37 GB (13.5%)
+Disk Space Avail:   5.38 GB / 475.75 GB (1.1%)
+	WARNING: Available disk space is low and there is a risk that AutoGluon will run out of disk during fit, causing an exception. 
+	We recommend a minimum available disk space of 10 GB, and large datasets may require more.
+===================================================
+Setting presets to: bolt_small
+
+Fitting with arguments:
+{'enable_ensemble': True,
+ 'eval_metric': WQL,
+ 'hyperparameters': {'Chronos': {'model_path': 'bolt_small'}},
+ 'known_covariates_names': [],
+ 'num_val_windows': 1,
+ 'prediction_length': 9,
+ 'quantile_levels': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+ 'random_seed': 123,
+ 'refit_every_n_windows': 1,
+ 'refit_full': False,
+ 'skip_model_selection': True,
+ 'target': 'target',
+ 'verbosity': 2}
+
+Inferred time series frequency: 'D'
+Provided train_data has 3655 rows, 1 time series. Median time series length is 3655 (min=3655, max=3655). 
+
+Provided data contains following columns:
+	target: 'target'
+
+AutoGluon will gauge predictive performance using evaluation metric: 'WQL'
+	This metric's sign has been flipped to adhere to being higher_is_better. The metric score can be multiplied by -1 to get the metric value.
+===================================================
+
+Starting training. Start time is 2025-04-29 19:15:24
+Models that will be trained: ['Chronos[bolt_small]']
+Training timeseries model Chronos[bolt_small]. 
+	0.01    s     = Training runtime
+Training complete. Models trained: ['Chronos[bolt_small]']
+Total runtime: 0.04 s
+Best model: Chronos[bolt_small]
+Model not specified in predict, will default to the model with the best validation score: Chronos[bolt_small]
