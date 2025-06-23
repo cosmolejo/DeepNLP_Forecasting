@@ -45,7 +45,7 @@ from gluonts.transform import (
 )
 
 from chronos import ChronosConfig, ChronosTokenizer
-
+from peft import LoraConfig, get_peft_model, TaskType
 
 app = typer.Typer(pretty_exceptions_enable=False)
 
@@ -160,6 +160,9 @@ def load_model(
     tie_embeddings=False,
     pad_token_id=0,
     eos_token_id=1,
+
+    # LoRA parameters
+    lora_config = None,
 ):
     """
     Load the specified HuggingFace model, adjusting the vocabulary
@@ -182,7 +185,17 @@ def load_model(
         model = AutoModelClass.from_config(config)
     else:
         log_on_main(f"Using pretrained initialization from {model_id}", logger)
-        model = AutoModelClass.from_pretrained(model_id)
+        if lora_config is not None:
+            log_on_main(f"Using LoRA for fine-tuning", logger)
+            peft_config = LoraConfig(task_type=
+                                     TaskType.SEQ_2_SEQ_LM if model_type == "seq2seq"
+                                    else TaskType.CAUSAL_LM, 
+                                 **lora_config)
+
+        model = (
+            AutoModelClass.from_pretrained(model_id) if lora_config is None 
+            else get_peft_model(AutoModelClass.from_pretrained(model_id), peft_config)
+            )
 
     model.resize_token_embeddings(vocab_size)
 
@@ -538,6 +551,9 @@ def main(
     top_k: int = 50,
     top_p: float = 1.0,
     seed: Optional[int] = None,
+
+    # LoRA parameters
+    lora_config: Optional[str] = None
 ):
     if tf32 and not (
         torch.cuda.is_available() and torch.cuda.get_device_capability()[0] >= 8
@@ -583,6 +599,8 @@ def main(
         tokenizer_kwargs = ast.literal_eval(tokenizer_kwargs)
     assert isinstance(tokenizer_kwargs, dict)
 
+    if isinstance(lora_config, str):
+        lora_config = ast.literal_eval(lora_config)
     assert model_type in ["seq2seq", "causal"]
 
     output_dir = get_next_path("run", base_dir=output_dir, file_type="")
@@ -621,7 +639,16 @@ def main(
         tie_embeddings=tie_embeddings,
         pad_token_id=pad_token_id,
         eos_token_id=eos_token_id,
+        
+        # Sending LoRA parameters
+        lora_config = lora_config,
     )
+
+    # Move the model to the GPU
+    log_on_main(f"CUDA available? {torch.cuda.is_available()}", logger)
+    if torch.cuda.is_available():
+        model = model.to("cuda")
+    log_on_main(f"Model is on device: {next(model.parameters()).device}", logger)
 
     chronos_config = ChronosConfig(
         tokenizer_class=tokenizer_class,
