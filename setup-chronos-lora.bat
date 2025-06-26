@@ -6,12 +6,12 @@ echo ========================================
 :: Paso 1 - Crear entorno virtual
 echo.
 echo Creando entorno virtual...
-python -m venv myEnvPrueba
+python -m venv venv
 
 :: Paso 2 - Activar entorno
 echo.
 echo Activando entorno virtual...
-call myEnvPrueba\Scripts\activate.bat
+call venv\Scripts\activate.bat
 
 :: Paso 3 - Instalar dependencias de Chronos
 echo.
