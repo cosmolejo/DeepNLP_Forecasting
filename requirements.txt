@@ -47,9 +47,7 @@ colorful==0.5.6
 colorlog==6.9.0
 comm==0.2.2
 confection==0.1.5
-contourpy @ file:///D:/bld/contourpy_1744743089286/work
 coreforecast==0.0.12
-cycler @ file:///home/conda/feedstock_root/build_artifacts/cycler_1733332471406/work
 cymem==2.0.11
 datasets==3.1.0
 debugpy==1.8.14
@@ -67,7 +65,6 @@ fastjsonschema==2.21.1
 fastprogress==1.0.3
 fev==0.3.0
 filelock==3.13.1
-fonttools @ file:///D:/bld/fonttools_1743732212146/work
 fqdn==1.5.1
 frozenlist==1.6.0
 fs==2.4.16
@@ -114,7 +111,6 @@ jupyterlab==4.4.1
 jupyterlab_pygments==0.3.0
 jupyterlab_server==2.27.3
 jupyterlab_widgets==3.0.14
-kiwisolver @ file:///D:/bld/kiwisolver_1736908223141/work
 langcodes==3.5.0
 language_data==1.3.0
 lazy_loader==0.4
@@ -189,11 +185,9 @@ pycryptodome==3.22.0
 pydantic==2.11.3
 pydantic_core==2.33.1
 Pygments==2.19.1
-pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1743089729650/work
 PySide6==6.9.0
 PySocks==1.7.1
 pytesseract==0.3.10
-python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1733215673016/work
 python-json-logger==3.3.0
 pytorch-lightning==2.5.1
 pytorch-metric-learning==2.3.0
@@ -224,7 +218,6 @@ seqeval==1.2.2
 setuptools==79.0.0
 shellingham==1.5.4
 shiboken6==6.9.0
-six @ file:///home/conda/feedstock_root/build_artifacts/six_1733380938961/work
 smart-open==7.1.0
 sniffio==1.3.1
 soupsieve==2.7
@@ -254,7 +247,6 @@ torch==2.5.1+cu121
 torchaudio==2.5.1+cu121
 torchmetrics==1.2.1
 torchvision==0.20.1+cu121
-tornado @ file:///D:/bld/tornado_1732615900937/work
 tqdm==4.67.1
 traitlets==5.14.3
 transformers==4.51.3
@@ -264,7 +256,6 @@ types-python-dateutil==2.9.0.20241206
 typing-inspection==0.4.0
 typing_extensions==4.12.2
 tzdata==2025.2
-unicodedata2 @ file:///D:/bld/unicodedata2_1736692520607/work
 uri-template==1.3.0
 urllib3==2.4.0
 utilsforecast==0.2.4
