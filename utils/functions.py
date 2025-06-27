@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-
+import numpy as np
+from autogluon.timeseries import TimeSeriesPredictor
 
 def plot_timeseries_forecasting(historical_data, low, median, high, start_forecasting_date=-1,
                                 prediction_interval = .8, prediction_length = 12,
@@ -22,3 +23,39 @@ def plot_timeseries_forecasting(historical_data, low, median, high, start_foreca
     plt.legend()
     plt.grid()
     plt.show()
+
+def  fit_models(prediction_length, train_data, historical_length): 
+
+    predictor_WQL= TimeSeriesPredictor(prediction_length=prediction_length,eval_metric="WQL").fit(
+        train_data.iloc[historical_length:,:], presets="bolt_small" #if use_cuda else "bolt_small"
+        ,
+    )
+    
+    predictor_MASE=TimeSeriesPredictor(prediction_length=prediction_length,eval_metric="MASE").fit(
+        train_data, presets="bolt_small" #if use_cuda else "bolt_small"
+        ,
+    )
+
+    return predictor_WQL, predictor_MASE 
+
+def update_table(errors_df, row, len_train,percentege_train, len_test,percentege_test, MASE, WQL): 
+
+    if row!=0: 
+        errors_df.loc[row, "Diference_MASE"] = np.abs(MASE - errors_df.loc[row-1, "MASE_error"])
+        errors_df.loc[row, "Diference_WQL"] = np.abs(WQL - errors_df.loc[row-1, "WQL_error"])
+
+    else:
+        errors_df.loc[row, "Diference_MASE"] = 0
+        errors_df.loc[row, "Diference_WQL"] = 0
+    
+    errors_df.loc[row, "Train_size"] = len_train
+    errors_df.loc[row, "Percentage_train"] = percentege_train
+
+    errors_df.loc[row, "Test_size"] = len_test
+    errors_df.loc[row, "Percentage_test"] = percentege_test
+
+
+    errors_df.loc[row, "MASE_error"] = MASE #The error
+    errors_df.loc[row, "WQL_error"] = WQL #The initial error is with the whole dataset
+
+    return errors_df
