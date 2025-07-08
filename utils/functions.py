@@ -24,19 +24,19 @@ def plot_timeseries_forecasting(historical_data, low, median, high, start_foreca
     plt.grid()
     plt.show()
 
-def  fit_models(prediction_length, train_data, historical_length): 
-
-    predictor_WQL= TimeSeriesPredictor(prediction_length=prediction_length,eval_metric="WQL").fit(
-        train_data.iloc[-historical_length:,:], presets="bolt_small" #if use_cuda else "bolt_small"
-        ,
-    )
+def fit_models(prediction_length,train_data,historical_length):
     
-    predictor_MASE=TimeSeriesPredictor(prediction_length=prediction_length,eval_metric="MASE").fit(
-        train_data.iloc[-historical_length:,:], presets="bolt_small" #if use_cuda else "bolt_small"
-        ,
-    )
+        pred_wql=TimeSeriesPredictor(prediction_length=prediction_length,eval_metric="WQL").fit(
+            train_data.iloc[-historical_length:], presets="bolt_small" #if use_cuda else "bolt_small"
+            ,
+        )
 
-    return predictor_WQL, predictor_MASE 
+        pred_mase=TimeSeriesPredictor(prediction_length=prediction_length,eval_metric="MASE").fit(
+            train_data.iloc[-historical_length:], presets="bolt_small" #if use_cuda else "bolt_small"
+            ,
+        )
+
+        return pred_wql, pred_mase
 
 def update_table(errors_df, row, len_train,percentege_train, len_test,percentege_test, MASE, WQL): 
 
