@@ -1,5 +1,10 @@
 training_data_paths:
-- "example.arrow" 
+- "./training/data/exchange_rate.arrow"
+- "./training/data/monash_car_parts.arrow"
+- "./training/data/monash_cif_2016.arrow"
+- "./training/data/monash_fred_md.arrow"
+- "./training/data/monash_hospital.arrow"
+#- "training_dataset.arrow" 
 #- "kernelsynth-data.arrow"
 probability:
 - 1.0
@@ -9,7 +14,8 @@ min_past: 60
 # max_steps: 200_000
 # max_steps: 1000
 max_steps: 10
-save_steps: 100_000
+save_steps: 2
+# save_steps: 100_000
 log_steps: 500
 per_device_train_batch_size: 32
 learning_rate: 0.001
