@@ -173,4 +173,5 @@ cython_debug/
 
 .idea
 AutogluonModels
-./LoRA/scripts/output/*
+
+LoRA/scripts/output/
