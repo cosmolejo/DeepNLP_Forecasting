@@ -132,6 +132,9 @@ def main(
     temperature: Optional[float] = None,
     top_k: Optional[int] = None,
     top_p: Optional[float] = None,
+
+    # LoRA parameters
+    lora_path: Optional[str] = None
 ):
     """Evaluate Chronos models.
 
