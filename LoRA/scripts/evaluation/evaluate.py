@@ -136,12 +136,7 @@ def main(
     # LoRA parameters
     lora_path: Optional[str] = None
 ):
-    """Evaluate Chronos models.
-
-    Parameters
-    ----------
-    config_path : Path
-        Path to the evaluation config. See ./configs/.
+    """Evaluas/.
     metrics_path : Path
         Path to the CSV file where metrics will be saved.
     chronos_model_id : str, optional, default = "amazon/chronos-t5-small"
@@ -177,7 +172,7 @@ def main(
     if isinstance(torch_dtype, str):
         torch_dtype = getattr(torch, torch_dtype)
     assert isinstance(torch_dtype, torch.dtype)
-
+ 
     # Load Chronos
     pipeline = BaseChronosPipeline.from_pretrained(
         chronos_model_id,
