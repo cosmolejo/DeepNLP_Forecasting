@@ -1,9 +1,5 @@
 training_data_paths:
-- "./training/data/exchange_rate.arrow"
-- "./training/data/monash_car_parts.arrow"
-- "./training/data/monash_cif_2016.arrow"
-- "./training/data/monash_fred_md.arrow"
-- "./training/data/monash_hospital.arrow"
+- "./training/data/training_dataset.arrow"
 #- "training_dataset.arrow" 
 #- "kernelsynth-data.arrow"
 probability:
@@ -12,9 +8,8 @@ context_length: 512
 prediction_length: 64
 min_past: 60
 # max_steps: 200_000
-# max_steps: 1000
-max_steps: 10
-save_steps: 2
+max_steps: 1000
+save_steps: 10
 # save_steps: 100_000
 log_steps: 500
 per_device_train_batch_size: 32

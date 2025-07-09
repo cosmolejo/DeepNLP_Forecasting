@@ -1,0 +1,61 @@
+{
+    "training_config": {
+        "training_data_paths": "['./training/data/training_dataset.arrow']",
+        "probability": "[1.0]",
+        "context_length": 512,
+        "prediction_length": 64,
+        "min_past": 60,
+        "max_steps": 10,
+        "save_steps": 2,
+        "log_steps": 500,
+        "per_device_train_batch_size": 32,
+        "learning_rate": 0.001,
+        "optim": "adamw_torch_fused",
+        "shuffle_buffer_length": 100000,
+        "gradient_accumulation_steps": 1,
+        "model_id": "amazon/chronos-t5-small",
+        "model_type": "seq2seq",
+        "random_init": false,
+        "tie_embeddings": true,
+        "output_dir": "./output/",
+        "tf32": false,
+        "torch_compile": false,
+        "tokenizer_class": "MeanScaleUniformBins",
+        "tokenizer_kwargs": "{'low_limit': -15.0, 'high_limit': 15.0}",
+        "n_tokens": 4096,
+        "n_special_tokens": 2,
+        "pad_token_id": 0,
+        "eos_token_id": 1,
+        "use_eos_token": true,
+        "lr_scheduler_type": "linear",
+        "warmup_ratio": 0.0,
+        "dataloader_num_workers": 0,
+        "max_missing_prop": 0.9,
+        "num_samples": 20,
+        "temperature": 1.0,
+        "top_k": 50,
+        "top_p": 1.0,
+        "seed": 436801406,
+        "lora_config": "{'r': 8, 'lora_alpha': 16, 'lora_dropout': 0.1, 'target_modules': ['q', 'v']}"
+    },
+    "job_info": {
+        "cuda_available": true,
+        "device_count": 1,
+        "device_names": {
+            "0": "NVIDIA GeForce GTX 1660 Ti"
+        },
+        "mem_info": {
+            "0": [
+                0,
+                6442123264
+            ]
+        },
+        "torchelastic_launched": false,
+        "python_version": "3.11.13 | packaged by Anaconda, Inc. | (main, Jun  5 2025, 13:03:15) [MSC v.1929 64 bit (AMD64)]",
+        "torch_version": "2.4.1+cu121",
+        "numpy_version": "1.26.4",
+        "gluonts_version": "0.16.2",
+        "transformers_version": "4.49.0",
+        "accelerate_version": "1.8.1"
+    }
+}
