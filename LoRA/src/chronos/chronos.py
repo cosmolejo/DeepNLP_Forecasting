@@ -567,6 +567,17 @@ class ChronosPipeline(BaseChronosPipeline):
         Supports the same arguments as ``AutoConfig`` and ``AutoModel``
         from ``transformers``.
         """
+        print(args)
+
+        from peft import PeftConfig, AutoPeftModelForSeq2SeqLM, AutoPeftModelForCausalLM
+        lora_model_id = None
+        if 'lora_model_id' in kwargs:
+            lora_model_id = kwargs.pop('lora_model_id')
+            lora_config = PeftConfig.from_pretrained(lora_model_id)
+
+            assert hasattr(lora_config, "r"), "Not a LoRA config file at " + lora_model_id
+            print("lora_model_id:", lora_model_id)
+            print("lora_config:", lora_config)
 
         config = AutoConfig.from_pretrained(*args, **kwargs)
 
@@ -575,10 +586,12 @@ class ChronosPipeline(BaseChronosPipeline):
         chronos_config = ChronosConfig(**config.chronos_config)
 
         if chronos_config.model_type == "seq2seq":
-            inner_model = AutoModelForSeq2SeqLM.from_pretrained(*args, **kwargs)
+            inner_model = (AutoModelForSeq2SeqLM.from_pretrained(*args, **kwargs) if lora_model_id is None 
+                           else AutoPeftModelForSeq2SeqLM.from_pretrained(lora_model_id, **kwargs))
         else:
             assert chronos_config.model_type == "causal"
-            inner_model = AutoModelForCausalLM.from_pretrained(*args, **kwargs)
+            inner_model = (AutoModelForCausalLM.from_pretrained(*args, **kwargs) if lora_model_id is None
+                           else AutoPeftModelForCausalLM.from_pretrained(lora_model_id, **kwargs))
 
         return cls(
             tokenizer=chronos_config.create_tokenizer(),

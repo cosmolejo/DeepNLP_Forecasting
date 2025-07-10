@@ -134,7 +134,7 @@ def main(
     top_p: Optional[float] = None,
 
     # LoRA parameters
-    lora_path: Optional[str] = None
+    lora_model_id: Optional[str] = None
 ):
     """Evaluas/.
     metrics_path : Path
@@ -178,8 +178,9 @@ def main(
         chronos_model_id,
         device_map=device,
         torch_dtype=torch_dtype,
+        lora_model_id=lora_model_id,
     )
-
+    
     if isinstance(pipeline, ChronosPipeline):
         predict_kwargs = dict(
             num_samples=num_samples,
