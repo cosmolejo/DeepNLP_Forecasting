@@ -15,7 +15,7 @@ if TYPE_CHECKING:
     from transformers import PreTrainedModel
 
 from .utils import left_pad_and_stack_1D
-
+from pathlib import Path
 
 class ForecastType(Enum):
     SAMPLES = "samples"
@@ -138,6 +138,17 @@ class BaseChronosPipeline(metaclass=PipelineRegistry):
         """
         from transformers import AutoConfig
 
+        from peft import PeftConfig, PeftModel
+        is_valid_lora_config = False
+
+        if kwargs["lora_model_id"] is not None:
+            lora_model_id = "../scripts/" + kwargs.pop("lora_model_id")
+            lora_config = PeftConfig.from_pretrained(lora_model_id)
+            is_valid_lora_config = hasattr(lora_config, "r") # r: Rank is compulsory when creating
+            
+            if not is_valid_lora_config:
+                raise ValueError("Not a LoRA config file at " + lora_model_id)
+
         torch_dtype = kwargs.get("torch_dtype", "auto")
         if torch_dtype != "auto" and isinstance(torch_dtype, str):
             kwargs["torch_dtype"] = cls.dtypes[torch_dtype]
@@ -158,7 +169,10 @@ class BaseChronosPipeline(metaclass=PipelineRegistry):
             raise ValueError(
                 f"Trying to load unknown pipeline class: {pipeline_class_name}"
             )
-
+        
+        if is_valid_config:
+            kwargs['lora_model_id'] = lora_model_id
+            
         return class_.from_pretrained(  # type: ignore[attr-defined]
             pretrained_model_name_or_path, *model_args, **kwargs
         )

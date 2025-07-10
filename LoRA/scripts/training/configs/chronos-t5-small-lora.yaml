@@ -1,5 +1,7 @@
 training_data_paths:
-- "kernelsynth-data.arrow"
+- "./training/data/training_dataset.arrow"
+#- "training_dataset.arrow" 
+#- "kernelsynth-data.arrow"
 probability:
 - 1.0
 context_length: 512
@@ -7,7 +9,8 @@ prediction_length: 64
 min_past: 60
 # max_steps: 200_000
 max_steps: 1000
-save_steps: 100_000
+save_steps: 10
+# save_steps: 100_000
 log_steps: 500
 per_device_train_batch_size: 32
 learning_rate: 0.001
