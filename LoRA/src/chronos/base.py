@@ -141,11 +141,11 @@ class BaseChronosPipeline(metaclass=PipelineRegistry):
         from peft import PeftConfig, PeftModel
         is_valid_lora_config = False
 
-        if "lora_model_id" in kwargs:
+        if kwargs["lora_model_id"] is not None:
             lora_model_id = "../scripts/" + kwargs.pop("lora_model_id")
             lora_config = PeftConfig.from_pretrained(lora_model_id)
             is_valid_lora_config = hasattr(lora_config, "r") # r: Rank is compulsory when creating
-
+            
             if not is_valid_lora_config:
                 raise ValueError("Not a LoRA config file at " + lora_model_id)
 
@@ -168,14 +168,6 @@ class BaseChronosPipeline(metaclass=PipelineRegistry):
         if class_ is None:
             raise ValueError(
                 f"Trying to load unknown pipeline class: {pipeline_class_name}"
-            )
-        
-        if not is_valid_lora_config:
-            return PeftModel.from_pretrained(
-                class_.from_pretrained(
-                    pretrained_model_name_or_path, *model_args, **kwargs
-                ),
-                lora_model_id
             )
         
         if is_valid_config:

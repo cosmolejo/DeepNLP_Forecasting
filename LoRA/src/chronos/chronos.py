@@ -567,7 +567,6 @@ class ChronosPipeline(BaseChronosPipeline):
         Supports the same arguments as ``AutoConfig`` and ``AutoModel``
         from ``transformers``.
         """
-        print(args)
 
         from peft import PeftConfig, AutoPeftModelForSeq2SeqLM, AutoPeftModelForCausalLM
         lora_model_id = None
@@ -576,8 +575,6 @@ class ChronosPipeline(BaseChronosPipeline):
             lora_config = PeftConfig.from_pretrained(lora_model_id)
 
             assert hasattr(lora_config, "r"), "Not a LoRA config file at " + lora_model_id
-            print("lora_model_id:", lora_model_id)
-            print("lora_config:", lora_config)
 
         config = AutoConfig.from_pretrained(*args, **kwargs)
 
