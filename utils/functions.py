@@ -24,14 +24,14 @@ def plot_timeseries_forecasting(historical_data, low, median, high, start_foreca
     plt.grid()
     plt.show()
 
-def fit_models(prediction_length,train_data,historical_length):
+def fit_models(prediction_length,train_data,historical_length, frequ):
     
-        pred_wql=TimeSeriesPredictor(prediction_length=prediction_length,eval_metric="WQL").fit(
-            train_data.iloc[-historical_length:], presets="bolt_small" #if use_cuda else "bolt_small"
-            ,
-        )
+        pred_wql=TimeSeriesPredictor(prediction_length=prediction_length,eval_metric="WQL", freq=frequ).fit(
+            train_data.iloc[-historical_length:], presets="bolt_small", #if use_cuda else "bolt_small"
+                    
+                )
 
-        pred_mase=TimeSeriesPredictor(prediction_length=prediction_length,eval_metric="MASE").fit(
+        pred_mase=TimeSeriesPredictor(prediction_length=prediction_length,eval_metric="MASE", freq=frequ).fit(
             train_data.iloc[-historical_length:], presets="bolt_small" #if use_cuda else "bolt_small"
             ,
         )
