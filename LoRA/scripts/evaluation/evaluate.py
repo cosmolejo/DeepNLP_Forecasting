@@ -132,13 +132,11 @@ def main(
     temperature: Optional[float] = None,
     top_k: Optional[int] = None,
     top_p: Optional[float] = None,
-):
-    """Evaluate Chronos models.
 
-    Parameters
-    ----------
-    config_path : Path
-        Path to the evaluation config. See ./configs/.
+    # LoRA parameters
+    lora_model_id: Optional[str] = None
+):
+    """Evaluas/.
     metrics_path : Path
         Path to the CSV file where metrics will be saved.
     chronos_model_id : str, optional, default = "amazon/chronos-t5-small"
@@ -174,14 +172,15 @@ def main(
     if isinstance(torch_dtype, str):
         torch_dtype = getattr(torch, torch_dtype)
     assert isinstance(torch_dtype, torch.dtype)
-
+ 
     # Load Chronos
     pipeline = BaseChronosPipeline.from_pretrained(
         chronos_model_id,
         device_map=device,
         torch_dtype=torch_dtype,
+        lora_model_id=lora_model_id,
     )
-
+    
     if isinstance(pipeline, ChronosPipeline):
         predict_kwargs = dict(
             num_samples=num_samples,

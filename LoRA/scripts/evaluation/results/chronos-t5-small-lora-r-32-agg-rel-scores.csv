@@ -1,0 +1,5 @@
+benchmark,metric,value
+zero-shot,MASE,0.8471634557084007
+zero-shot,WQL,0.6714962160396135
+fine-tuned,MASE,0.8856780293716017
+fine-tuned,WQL,0.6817306348028269

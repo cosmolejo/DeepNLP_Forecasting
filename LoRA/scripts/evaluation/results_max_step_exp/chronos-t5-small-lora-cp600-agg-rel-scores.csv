@@ -1,0 +1,3 @@
+benchmark,metric,value
+fine-tuned,MASE,0.8311553751207559
+fine-tuned,WQL,0.6230758378687234
