@@ -21,6 +21,8 @@ def main(
     model_name: str,
     baseline_name: str = "seasonal-naive",
     results_dir: Path = DEFAULT_RESULTS_DIR,
+
+    is_fine_tuned_required: bool = False
 ):
     """
     Compute the aggregated relative score as reported in the Chronos paper.
@@ -49,8 +51,21 @@ def main(
     zero_shot_agg_score_df.name = "value"
     zero_shot_agg_score_df.index.name = "metric"
 
+    agg_score_dict = {"in-domain": in_domain_agg_score_df, "zero-shot": zero_shot_agg_score_df}
+
+    if is_fine_tuned_required:
+        fine_tuned_agg_score_df = agg_relative_score(
+            results_dir / f"{model_name}-fine-tuned.csv",
+            results_dir / f"{baseline_name}-fine-tuned.csv",
+        )
+        fine_tuned_agg_score_df.name = "value"
+        fine_tuned_agg_score_df.index.name = "metric"
+
+        agg_score_dict["fine-tuned"] = fine_tuned_agg_score_df
+    
+
     agg_score_df = pd.concat(
-        {"in-domain": in_domain_agg_score_df, "zero-shot": zero_shot_agg_score_df},
+        agg_score_dict,
         names=["benchmark"],
     )
     agg_score_df.to_csv(f"{results_dir}/{model_name}-agg-rel-scores.csv")
