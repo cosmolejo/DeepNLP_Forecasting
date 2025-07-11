@@ -196,6 +196,9 @@ def load_model(
             AutoModelClass.from_pretrained(model_id) if lora_config is None 
             else get_peft_model(AutoModelClass.from_pretrained(model_id), peft_config)
             )
+        
+        if lora_config is not None:
+            model.print_trainable_parameters()
 
     model.resize_token_embeddings(vocab_size)
 
