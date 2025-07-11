@@ -1,5 +1,7 @@
 @echo off
 for /l %%N in (50,50,1000) do (
+    echo Running evaluation for checkpoint %%N
+    
     python evaluation\evaluate.py ^
         evaluation\configs\fine-tuned.yaml ^
         evaluation\results_max_step_exp\chronos-t5-small-lora-cp%%N-fine-tuned.csv ^
