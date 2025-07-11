@@ -1,0 +1,9 @@
+dataset,model,MASE,WQL
+exchange_rate,amazon/chronos-t5-small,2.336936811160217,0.013854028934623595
+monash_car_parts,amazon/chronos-t5-small,1.6197202846313525,1.6854061575366224
+monash_cif_2016,amazon/chronos-t5-small,1.044459931951607,0.011016093167620523
+monash_covid_deaths,amazon/chronos-t5-small,38.777830432861656,0.043031526639358275
+monash_fred_md,amazon/chronos-t5-small,0.5644811316152721,0.03592881002263539
+monash_hospital,amazon/chronos-t5-small,0.8908476173391653,0.06056397977698988
+monash_m3_monthly,amazon/chronos-t5-small,0.8864309983092107,0.10239948981593644
+monash_traffic,amazon/chronos-t5-small,0.7390325515701323,0.23728339070704868
