@@ -5,12 +5,11 @@ from autogluon.timeseries import TimeSeriesPredictor
 
 def plot_timeseries_forecasting(historical_data, low, median, high, start_forecasting_date=-1,
                                 prediction_interval = .8, prediction_length = 12,
-                                figsize=(20,5)):
-
+                                figsize=(20,5), freq:str='MS'):
     years_data = historical_data.index
-    start = pd.date_range(years_data[-1], periods=2, freq="MS")[-1] if start_forecasting_date == -1 else start_forecasting_date
+    start = pd.date_range(years_data[-1], periods=2, freq=freq)[-1] if start_forecasting_date == -1 else start_forecasting_date
     forecast_index = pd.date_range(start=start,
-                                   periods=prediction_length, freq="MS")
+                                   periods=prediction_length, freq=freq)
 
     plt.figure(figsize=figsize)
     plt.plot(years_data, historical_data,
