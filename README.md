@@ -2,7 +2,7 @@
 Before diving into fine-tuning, let's get your environment ready with the following steps:
 1. **Create a Python virtual environment:**
     <pre>
-    `python -m venv [name of the environment]`
+    python -m venv [name of the environment]
     </pre>
 2. Open a terminal inside the LoRA folder (located within the repository), and install Chronos in editable mode with training dependencies:
     <pre>
